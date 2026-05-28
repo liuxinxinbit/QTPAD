@@ -1,6 +1,11 @@
 # QtPad
 
-QtPad is a Qt5-based Linux desktop utility that uses `uinput` to create a virtual Xbox 360-style controller. It is designed for simulating stick movement and a small set of combo inputs when you do not have a physical gamepad attached.
+QtPad is a lightweight Qt5 desktop app for Linux that creates a virtual Xbox 360-style controller through `uinput`.
+
+It focuses on two things:
+
+- Circular left/right stick simulation with auto-centering
+- Two combo actions: `LB + Y` and `LB + RB`
 
 ## Screenshot
 
@@ -8,14 +13,26 @@ QtPad is a Qt5-based Linux desktop utility that uses `uinput` to create a virtua
 
 ## Features
 
+- Circular drag pads for both analog sticks
+- Auto-recenter when the mouse is released
+- Minimal interface with no key log panel
+- Virtual Xbox 360-style output via Linux `uinput`
+- Ready-to-build CMake project layout
 
-## Usage
+## Controls
 
+- Drag inside the left circle to move the left stick
+- Drag inside the right circle to move the right stick
+- Release the mouse button to return the stick to center
+- Click `LB + Y` or `LB + RB` to send the corresponding combo
 
 ## Build
 
 ### Requirements
 
+- Qt5 Widgets
+- CMake 3.16 or newer
+- Linux kernel `uinput` module
 
 ### Compile
 
@@ -24,33 +41,38 @@ cmake -S . -B build
 cmake --build build
 ```
 
-## Run
+### Run
 
 ```bash
 ./build/qtpad
 ```
 
-## Permissions and Environment
+## Permissions
 
-The app needs access to `/dev/uinput`. If it fails at startup, make sure the kernel module is loaded and run it with sufficient permissions.
+QtPad needs access to `/dev/uinput`. If the app fails to start, make sure the module is loaded and that your user has permission to use it.
 
 ```bash
 sudo modprobe uinput
 ls -l /dev/uinput
 ```
 
-If your distribution does not grant regular users access to `/dev/uinput` by default, you can run it with `sudo` temporarily or add an appropriate `udev` rule.
+If your distribution does not allow regular users to access `/dev/uinput` by default, you can temporarily run the app with `sudo` or create an appropriate `udev` rule.
 
-## GitHub Release Notes
+## Project Structure
 
+- `src/` - Qt application code and virtual controller backend
+- `IMG/` - screenshots and other documentation assets
+- `CMakeLists.txt` - build configuration
+- `LICENSE` - open source license
 
-## Audience
+## License
 
-This project is a good fit for:
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
+## Notes
 
-## 中文说明
+This project is useful for:
 
-如果你更习惯中文，也可以把它当作一个 Linux 下的虚拟 Xbox 360 手柄工具：支持左右摇杆圆形拖拽、松手自动回中，以及 `LB + Y`、`LB + RB` 两个组合键。
-
-# QTPAD
+- Linux controller input testing
+- Virtual gamepad demos
+- Automation workflows that expect an Xbox 360-style device
